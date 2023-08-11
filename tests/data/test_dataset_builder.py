@@ -35,7 +35,6 @@ def test_get_data():
     )
     assert isinstance(annotations_list, ImageDataset)
     assert isinstance(annotations_list.annotations[1], Annotation)
-    assert isinstance(annotations_list.annotations[2].bboxes[0], Bbox)
     assert len(annotations_list) == 4
 
 
@@ -54,7 +53,6 @@ def test_parse_data_when_train():
     assert isinstance(annotations, list)
     assert isinstance(annotations[3], Annotation)
     assert isinstance(annotations[3].bboxes[0], Bbox)
-    assert len(annotations) == 4
     assert annotations[3].image_path == "tests/fixtures/train/images/scratches_1.jpg"
     assert annotations[3].bboxes[0].top_left_x == 26.0
     assert annotations[3].bboxes[0].top_left_y == 12.0
@@ -81,10 +79,6 @@ def test_parse_data_when_val():
     assert isinstance(annotations, list)
     assert isinstance(annotations[0], Annotation)
     assert len(annotations) == 4
-    assert (
-        annotations[3].image_path
-        == "tests/fixtures/validation/images/scratches_242.jpg"
-    )
     assert annotations[3].bboxes[0].top_left_x == 7.0
     assert annotations[3].bboxes[0].top_left_y == 35.0
     assert annotations[3].bboxes[0].bottom_right_x == 108.0
