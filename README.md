@@ -1,4 +1,4 @@
-<h1>Identifying steel product defects using Object Detection</h1>
+<h1>Identifying steel plate product defects using Object Detection</h1>
 <img src="docs/frcnn_diagram.png" />
 
 As step-by-step tutorial detailing how to fine-tune a pre-trained model using custom data to detect steel plate surface defects in images.
