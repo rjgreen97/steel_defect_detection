@@ -1,40 +1,15 @@
-from pydantic import Field
+from torch.utils.data import Dataset
 
-from src.config.base_config import BaseConfig
+from src.data.annotation import Annotation
 
 
-class DatasetBuilderConfig(BaseConfig):
-    """XML parsing tags for the dataset builder."""
+class ImageDataset(Dataset):
+    def __init__(self, annotations: list[Annotation] = None):
+        self.annotations = annotations or []
 
-    top_left_x: str = Field(
-        default="bndbox/xmin", description="XML tag for top left x coordinate value"
-    )
+    def __len__(self):
+        return len(self.annotations)
 
-    top_left_y: str = Field(
-        default="bndbox/ymin", description="XML tag for top left y coordinate value"
-    )
-
-    bottom_right_x: str = Field(
-        default="bndbox/xmax", description="XML tag for bottom right x coordinate value"
-    )
-
-    bottom_right_y: str = Field(
-        default="bndbox/ymax", description="XML tag for bottom right y coordinate value"
-    )
-
-    filename_tag: str = Field(
-        default="filename", description="XML tag for image filename"
-    )
-
-    image_tag: str = Field(default="images", description="XML tag for image")
-
-    object_tag: str = Field(default="object", description="XML tag for object")
-
-    annotations_dir: str = Field(
-        default="annotations", description="Directory where annotations are stored"
-    )
-
-    scratches_annotation: str = Field(
-        default="scratches",
-        description="Annotation name for scratches",
-    )
+    def __getitem__(self, index):
+        annotation = self.annotations[index]
+        return annotation.image(), annotation.targets()
